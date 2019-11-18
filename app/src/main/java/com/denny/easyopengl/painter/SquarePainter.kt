@@ -59,8 +59,8 @@ class SquarePainter : IPainter {
             this.height = height
             Matrix.perspectiveM(projectMatrix, 0, 30f, width / (height * 1.0f), 1f, 10f)
             Matrix.setIdentityM(modelMatrix, 0)
-            Matrix.translateM(modelMatrix, 0, 0f, 0f, -5f)
-            Matrix.rotateM(modelMatrix, 0, -60f, 1f, 0f, 0f)
+            Matrix.translateM(modelMatrix, 0, 0f, 0f, -3f)
+            Matrix.rotateM(modelMatrix, 0, -30f, 1f, 0f, 0f)
             Matrix.multiplyMM(mpMatrix, 0, projectMatrix, 0, modelMatrix, 0)
         }
     }

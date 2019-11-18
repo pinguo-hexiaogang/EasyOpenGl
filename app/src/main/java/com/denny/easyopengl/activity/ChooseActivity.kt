@@ -17,6 +17,7 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.denny.easyopengl.R
+import com.denny.easyopengl.painter.ConePainter
 import com.denny.easyopengl.painter.SquarePainter
 import com.denny.easyopengl.painter.TrianglePainter
 import java.util.*
@@ -57,7 +58,7 @@ class ChooseActivity : AppCompatActivity() {
 //        add("正方形", Square::class.java)
 //        add("圆形", Oval::class.java)
         add("正方体", SquarePainter::class.java)
-//        add("圆锥", Cone::class.java)
+        add("圆锥", ConePainter::class.java)
 //        add("圆柱", Cylinder::class.java)
 //        add("球体", Ball::class.java)
 //        add("带光源的球体", BallWithLight::class.java)

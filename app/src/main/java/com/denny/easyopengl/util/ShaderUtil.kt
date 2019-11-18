@@ -1,6 +1,7 @@
 package com.denny.easyopengl.util
 
 import android.opengl.GLES20
+import java.lang.IllegalArgumentException
 
 object ShaderUtil {
     fun loadShader(type: Int, shaderCode: String): Int {
@@ -22,6 +23,9 @@ object ShaderUtil {
         GLES20.glAttachShader(program, fragmentShader)
         //连接到着色器程序
         GLES20.glLinkProgram(program)
+        if (GLES20.glGetError() != GLES20.GL_NO_ERROR) {
+            throw IllegalArgumentException("create shader fail")
+        }
         return program
     }
 

@@ -21,7 +21,10 @@ class ConePainter : IPainter {
     private var width = 0
     private var height = 0
     private val vertexShader =
-        AssetsUtils.getAssetsFileContent(EasyApplication.application, "shader/cone/cone_vertex_shader")
+        AssetsUtils.getAssetsFileContent(
+            EasyApplication.application,
+            "shader/cone/cone_vertex_shader"
+        )
     private val fragmentShader = AssetsUtils.getAssetsFileContent(
         EasyApplication.application,
         "shader/cone/cone_fragment_shader"
@@ -34,6 +37,7 @@ class ConePainter : IPainter {
     private var positionAttrIndex: Int = 0
 
     private var matrix = FloatArray(16)
+    private val circle = CirclePainter(CONE_RADIUS)
 
     companion object {
         const val CONE_HEIGHT = 3F
@@ -43,6 +47,7 @@ class ConePainter : IPainter {
 
 
     override fun ifNeedInit(width: Int, height: Int) {
+        circle.ifNeedInit(width,height)
         if (!inited) {
             inited = true
             program = ShaderUtil.createShaderProgram(vertexShader, fragmentShader)
@@ -62,8 +67,9 @@ class ConePainter : IPainter {
             val projectionM = FloatArray(16)
             val viewM = FloatArray(16)
             Matrix.perspectiveM(projectionM, 0, 60f, width * 1.0f / height, 1f, 20f)
-            Matrix.setLookAtM(viewM, 0, 3f, -10f, 15f, 0f, 0f, 0f, 0f, 1f, 0f)
+            Matrix.setLookAtM(viewM, 0, 3f, 10f, 15f, 0f, 0f, 0f, 0f, 1f, 0f)
             Matrix.multiplyMM(matrix, 0, projectionM, 0, viewM, 0)
+            circle.setMatrix(matrix)
         }
     }
 
@@ -102,5 +108,6 @@ class ConePainter : IPainter {
         GLES20.glUniformMatrix4fv(matrixUniformIndex, 1, false, matrix, 0)
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_FAN, 0, points.size / 3)
         GLES20.glDisableVertexAttribArray(positionAttrIndex)
+        circle.draw(gl)
     }
 }

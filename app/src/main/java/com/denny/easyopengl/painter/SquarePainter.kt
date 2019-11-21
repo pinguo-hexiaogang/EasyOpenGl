@@ -21,16 +21,13 @@ class SquarePainter : IPainter {
     private var colorUniform: Int = 0
     private val triangleCoords =
         floatArrayOf(
-            -0.5f, 0.5f, 0f,
-            0.5f, 0.5f, 0f,
-            -0.5f, -0.5f, 0f,
-            0.5f, -0.5f, 0f
+            -0.5f, 0.5f,
+            -0.5f, -0.5f,
+            0.5f, 0.5f,
+            0.5f, -0.5f
         )
     private val color = floatArrayOf(1f, 0f, 0f, 1f)
     private lateinit var triangleBuffer: FloatBuffer
-    private val COORDIS_PER_VERTEX = 3
-    private val VERTEX_STRIDE = COORDIS_PER_VERTEX * 4
-    private val VERTEX_COUNT = triangleCoords.size / COORDIS_PER_VERTEX
     private var width: Int = 0
     private var height: Int = 0
 
@@ -57,11 +54,11 @@ class SquarePainter : IPainter {
         if (this.width != width || this.height != height) {
             this.width = width
             this.height = height
-            Matrix.perspectiveM(projectMatrix, 0, 30f, width / (height * 1.0f), 1f, 10f)
-            Matrix.setIdentityM(modelMatrix, 0)
-            Matrix.translateM(modelMatrix, 0, 0f, 0f, -3f)
-            Matrix.rotateM(modelMatrix, 0, -30f, 1f, 0f, 0f)
-            Matrix.multiplyMM(mpMatrix, 0, projectMatrix, 0, modelMatrix, 0)
+            val projectionMatrix = FloatArray(16)
+            Matrix.perspectiveM(projectionMatrix, 0, 60f, width * 1f / height, 1f, 20f)
+            val viewMatrix = FloatArray(16)
+            Matrix.setLookAtM(viewMatrix, 0, 0f, 0f, 3f, 0f, 0f, 0f, 0f, 1f, 0f)
+            Matrix.multiplyMM(mpMatrix, 0, projectionMatrix, 0, viewMatrix, 0)
         }
     }
 
@@ -71,16 +68,16 @@ class SquarePainter : IPainter {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
         GLES20.glVertexAttribPointer(
             positionAttr,
-            COORDIS_PER_VERTEX,
+            2,
             GLES20.GL_FLOAT,
             false,
-            VERTEX_STRIDE,
+            0,
             triangleBuffer
         )
         GLES20.glUniform4fv(colorUniform, 1, color, 0)
         GLES20.glUniformMatrix4fv(matrixUniform, 1, false, mpMatrix, 0)
         GLES20.glEnableVertexAttribArray(positionAttr)
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, VERTEX_COUNT)
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
         GLES20.glDisableVertexAttribArray(positionAttr)
     }
 }

@@ -17,10 +17,7 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.denny.easyopengl.R
-import com.denny.easyopengl.painter.CirclePainter
-import com.denny.easyopengl.painter.ConePainter
-import com.denny.easyopengl.painter.SquarePainter
-import com.denny.easyopengl.painter.TrianglePainter
+import com.denny.easyopengl.painter.*
 import java.util.*
 
 /**
@@ -43,12 +40,13 @@ class ChooseActivity : AppCompatActivity() {
         initData()
         mList = findViewById(R.id.mList) as ListView
         mList!!.adapter = Adapter()
-        mList!!.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            val intent = Intent()
-            intent.putExtra("name", mData!![position].clazz)
-            setResult(RESULT_OK, intent)
-            finish()
-        }
+        mList!!.onItemClickListener =
+            AdapterView.OnItemClickListener { parent, view, position, id ->
+                val intent = Intent()
+                intent.putExtra("name", mData!![position].clazz)
+                setResult(RESULT_OK, intent)
+                finish()
+            }
     }
 
     private fun initData() {
@@ -60,6 +58,7 @@ class ChooseActivity : AppCompatActivity() {
         add("圆形", CirclePainter::class.java)
         add("正方体", SquarePainter::class.java)
         add("圆锥", ConePainter::class.java)
+        add("纹理", TexturePainter::class.java)
 //        add("圆柱", Cylinder::class.java)
 //        add("球体", Ball::class.java)
 //        add("带光源的球体", BallWithLight::class.java)
@@ -95,7 +94,8 @@ class ChooseActivity : AppCompatActivity() {
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
             var convertView = convertView
             if (convertView == null) {
-                convertView = LayoutInflater.from(context).inflate(R.layout.item_choose, parent, false)
+                convertView =
+                    LayoutInflater.from(context).inflate(R.layout.item_choose, parent, false)
                 convertView!!.tag = ViewHolder(convertView)
             }
             val holder = convertView.tag as ViewHolder

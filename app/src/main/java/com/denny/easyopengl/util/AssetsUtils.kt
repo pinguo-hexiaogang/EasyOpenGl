@@ -166,7 +166,7 @@ object AssetsUtils {
      * @author liubo
      */
     @Throws(IOException::class)
-    private fun getAssetsFileData(context: Context, fileName: String): ByteArray {
+    fun getAssetsFileData(context: Context, fileName: String): ByteArray {
         val am = context.assets
         var `in`: BufferedInputStream? = null
         try {

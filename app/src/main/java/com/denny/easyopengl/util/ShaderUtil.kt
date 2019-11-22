@@ -10,8 +10,11 @@ object ShaderUtil {
         //将资源加入到着色器中，并编译
         GLES20.glShaderSource(shader, shaderCode)
         GLES20.glCompileShader(shader)
-        checkCompileStatus(shader, shaderCode)
-        return shader
+        val success = checkCompileStatus(shader, shaderCode)
+        if (!success) {
+            GLES20.glDeleteShader(shader)
+        }
+        return if (success) shader else -1
     }
 
     private fun checkCompileStatus(shader: Int, shaderCode: String): Boolean {
@@ -34,6 +37,9 @@ object ShaderUtil {
     fun createShaderProgram(vertexShaderCode: String, fragmentShaderCode: String): Int {
         val vertexShader = loadShader(GLES20.GL_VERTEX_SHADER, vertexShaderCode)
         val fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, fragmentShaderCode)
+        if (vertexShader == -1 || fragmentShader == -1) {
+            return -1
+        }
         val program = GLES20.glCreateProgram()
         //将顶点着色器加入到程序
         GLES20.glAttachShader(program, vertexShader)
@@ -41,8 +47,13 @@ object ShaderUtil {
         GLES20.glAttachShader(program, fragmentShader)
         //连接到着色器程序
         GLES20.glLinkProgram(program)
-        if (GLES20.glGetError() != GLES20.GL_NO_ERROR) {
-            throw IllegalArgumentException("create shader fail")
+        val programStatus = IntArray(1)
+        GLES20.glGetProgramiv(program, GLES20.GL_LINK_STATUS, programStatus, 0)
+        val success = programStatus[0] == GLES20.GL_TRUE
+        if (!success) {
+            val programInfo = GLES20.glGetProgramInfoLog(program)
+            L.e("program error:$programInfo")
+            GLES20.glDeleteProgram(program)
         }
         return program
     }

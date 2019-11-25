@@ -15,11 +15,11 @@ import javax.microedition.khronos.opengles.GL10
 class TexturePainter : IPainter {
     private var vertexShader = AssetsUtils.getAssetsFileContent(
         EasyApplication.application,
-        "shader/texture/texture_vertex_shader"
+        "shader/texture/texture_vertex_shader.vert"
     )
     private var fragmentShader = AssetsUtils.getAssetsFileContent(
         EasyApplication.application,
-        "shader/texture/texture_fragment_shader"
+        "shader/texture/texture_fragment_shader.frag"
     )
     private var width = 0
     private var height = 0
@@ -156,6 +156,7 @@ class TexturePainter : IPainter {
             textureVertexBuff
         )
         GLES20.glUniform1i(GLES20.glGetUniformLocation(shaderProgram, "vTexture"), 0)
+        GLES20.glUniform1i(GLES20.glGetUniformLocation(shaderProgram,"isHalf"),1)
         loadTexture()
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, vertexs.size / 2)
         GLES20.glDisableVertexAttribArray(positionAttr)

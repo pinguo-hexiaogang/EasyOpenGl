@@ -1,7 +1,6 @@
 package com.denny.easyopengl.util
 
 import android.opengl.GLES20
-import java.lang.IllegalArgumentException
 
 object ShaderUtil {
     fun loadShader(type: Int, shaderCode: String): Int {
@@ -47,6 +46,10 @@ object ShaderUtil {
         GLES20.glAttachShader(program, fragmentShader)
         //连接到着色器程序
         GLES20.glLinkProgram(program)
+
+        GLES20.glDeleteShader(vertexShader)
+        GLES20.glDeleteShader(fragmentShader)
+
         val programStatus = IntArray(1)
         GLES20.glGetProgramiv(program, GLES20.GL_LINK_STATUS, programStatus, 0)
         val success = programStatus[0] == GLES20.GL_TRUE

@@ -1,9 +1,9 @@
-package com.denny.easyopengl.painter
+package com.denny.easyopengl.painter.shape
 
-import android.graphics.Camera
 import android.opengl.GLES20
 import android.opengl.Matrix
 import com.denny.easyopengl.EasyApplication
+import com.denny.easyopengl.painter.IPainter
 import com.denny.easyopengl.util.AssetsUtils
 import com.denny.easyopengl.util.ShaderUtil
 import java.nio.ByteBuffer

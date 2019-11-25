@@ -1,4 +1,4 @@
-package com.denny.easyopengl.painter
+package com.denny.easyopengl.painter.texture
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -6,6 +6,7 @@ import android.opengl.GLES20
 import android.opengl.GLUtils
 import android.opengl.Matrix
 import com.denny.easyopengl.EasyApplication
+import com.denny.easyopengl.painter.IPainter
 import com.denny.easyopengl.util.AssetsUtils
 import com.denny.easyopengl.util.ShaderUtil
 import com.denny.easyopengl.util.tofloatBuffer

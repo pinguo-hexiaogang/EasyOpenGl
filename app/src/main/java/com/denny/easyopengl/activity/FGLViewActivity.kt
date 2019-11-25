@@ -14,7 +14,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.denny.easyopengl.R
 import com.denny.easyopengl.painter.IPainter
-import com.denny.easyopengl.painter.TrianglePainter
+import com.denny.easyopengl.painter.shape.TrianglePainter
 import com.denny.easyopengl.render.ShapeRender
 
 /**

@@ -17,7 +17,11 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.denny.easyopengl.R
-import com.denny.easyopengl.painter.*
+import com.denny.easyopengl.painter.shape.CirclePainter
+import com.denny.easyopengl.painter.shape.ConePainter
+import com.denny.easyopengl.painter.shape.SquarePainter
+import com.denny.easyopengl.painter.shape.TrianglePainter
+import com.denny.easyopengl.painter.texture.TexturePainter
 import java.util.*
 
 /**

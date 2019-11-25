@@ -22,6 +22,7 @@ import com.denny.easyopengl.painter.shape.ConePainter
 import com.denny.easyopengl.painter.shape.SquarePainter
 import com.denny.easyopengl.painter.shape.TrianglePainter
 import com.denny.easyopengl.painter.texture.TexturePainter
+import com.denny.easyopengl.painter.texture.TextureSplitPainter
 import java.util.*
 
 /**
@@ -58,11 +59,12 @@ class ChooseActivity : AppCompatActivity() {
         add("三角形", TrianglePainter::class.java)
 //        add("正三角形", TriangleWithCamera::class.java)
 //        add("彩色三角形", TriangleColorFull::class.java)
-//        add("正方形", Square::class.java)
+//        add("正方体", Square::class.java)
         add("圆形", CirclePainter::class.java)
-        add("正方体", SquarePainter::class.java)
+        add("正方形", SquarePainter::class.java)
         add("圆锥", ConePainter::class.java)
         add("纹理", TexturePainter::class.java)
+        add("分屏纹理", TextureSplitPainter::class.java)
 //        add("圆柱", Cylinder::class.java)
 //        add("球体", Ball::class.java)
 //        add("带光源的球体", BallWithLight::class.java)

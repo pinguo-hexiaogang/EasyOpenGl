@@ -13,15 +13,16 @@ import com.denny.easyopengl.util.tofloatBuffer
 import java.nio.ByteBuffer
 import javax.microedition.khronos.opengles.GL10
 
-class TexturePainter : IPainter {
+open class TexturePainter : IPainter {
     private var vertexShader = AssetsUtils.getAssetsFileContent(
         EasyApplication.application,
         "shader/texture/texture_vertex_shader.vert"
     )
-    private var fragmentShader = AssetsUtils.getAssetsFileContent(
+    open var fragmentShader = AssetsUtils.getAssetsFileContent(
         EasyApplication.application,
         "shader/texture/texture_fragment_shader.frag"
     )
+
     private var width = 0
     private var height = 0
     private var hasInited = false
@@ -125,8 +126,12 @@ class TexturePainter : IPainter {
         )
     }
 
+
+
+
     override fun draw(gl: GL10?) {
         GLES20.glUseProgram(shaderProgram)
+        subDraw(gl,shaderProgram)
         GLES20.glClearColor(1f, 0f, 0f, 1f)
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
         GLES20.glUniformMatrix4fv(
@@ -157,7 +162,7 @@ class TexturePainter : IPainter {
             textureVertexBuff
         )
         GLES20.glUniform1i(GLES20.glGetUniformLocation(shaderProgram, "vTexture"), 0)
-        GLES20.glUniform1i(GLES20.glGetUniformLocation(shaderProgram,"isHalf"),1)
+        GLES20.glUniform1i(GLES20.glGetUniformLocation(shaderProgram, "isHalf"), 1)
         loadTexture()
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, vertexs.size / 2)
         GLES20.glDisableVertexAttribArray(positionAttr)

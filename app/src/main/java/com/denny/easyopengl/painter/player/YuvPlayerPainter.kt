@@ -2,6 +2,8 @@ package com.denny.easyopengl.painter.player
 
 import android.opengl.GLES20
 import android.opengl.Matrix
+import android.os.SystemClock
+import android.widget.FrameLayout
 import com.denny.easyopengl.EasyApplication
 import com.denny.easyopengl.painter.IPainter
 import com.denny.easyopengl.util.*
@@ -21,6 +23,7 @@ class YuvPlayerPainter : IPainter {
         const val VIDEO_PATH = "/sdcard/testVideo/beayty.yuv"
         const val VIDEO_WIDTH = 960
         const val VIDEO_HEIGHT = 1280
+        const val FRAME_RATE = 30
     }
 
     private val vertexShader = AssetsUtils.getAssetsFileContent(
@@ -34,7 +37,9 @@ class YuvPlayerPainter : IPainter {
     private var program = 0
 
     private var hasInit = false
-
+    private val yBuffer = ByteArray(VIDEO_WIDTH * VIDEO_HEIGHT)
+    private val uBuffer = ByteArray(VIDEO_WIDTH * VIDEO_HEIGHT / 4)
+    private val vBuffer = ByteArray(VIDEO_WIDTH * VIDEO_HEIGHT / 4)
     private var vertexsBuf = floatArrayOf(
         -1f, 1f,
         -1f, -1f,
@@ -127,6 +132,7 @@ class YuvPlayerPainter : IPainter {
     }
 
     override fun draw(gl: GL10?) {
+        val startTime = System.currentTimeMillis()
         GLES20.glClearColor(0f, 0f, 0f, 1f)
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
         GLES20.glUseProgram(program)
@@ -147,12 +153,13 @@ class YuvPlayerPainter : IPainter {
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
         GLES20.glDisableVertexAttribArray(aPosition)
         GLES20.glDisableVertexAttribArray(aTexturePos)
+        val frameUseTime = System.currentTimeMillis() - startTime
+        if (frameUseTime < 1000 * 1f / FRAME_RATE) {
+            SystemClock.sleep((1000 * 1f / FRAME_RATE).toLong() - frameUseTime)
+        }
     }
 
     private fun readYuvFrames() {
-        val yBuffer = ByteArray(VIDEO_WIDTH * VIDEO_HEIGHT)
-        val uBuffer = ByteArray(VIDEO_WIDTH * VIDEO_HEIGHT / 4)
-        val vBuffer = ByteArray(VIDEO_WIDTH * VIDEO_HEIGHT / 4)
         if (inputStream.readBytesCheck(yBuffer)
             && inputStream.readBytesCheck(uBuffer)
             && inputStream.readBytesCheck(vBuffer)

@@ -9,9 +9,9 @@ void main(){
     vec3 rgb;
     //分别取yuv各个分量的采样纹理（r表示？）
     //
-    yuv.x = texture2D(yTexture, vTextCoord).r;
-    yuv.y = texture2D(uTexture, vTextCoord).r - 0.5;
-    yuv.z = texture2D(vTexture, vTextCoord).r - 0.5;
+    yuv.x = texture2D(yTexture, vTextCoord).b;
+    yuv.y = texture2D(uTexture, vTextCoord).b - 0.5;
+    yuv.z = texture2D(vTexture, vTextCoord).b - 0.5;
     rgb = mat3(
     1.0, 1.0, 1.0,
     0.0, -0.39465, 2.03211,

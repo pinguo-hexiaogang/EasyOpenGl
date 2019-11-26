@@ -9,6 +9,13 @@ import java.io.File
 import java.io.InputStream
 import javax.microedition.khronos.opengles.GL10
 
+/**
+ * 1.VIDEO_PATH 配置yuv文件路径;可用以下命令将视频文件转换成yuv文件
+ *   ffmpeg -i beauty.mp4 -s 960x1280 -pix_fmt yuv420p ~/Downloads/beayty.yuv
+ * 2.shader只支持yuv420p格式
+ * 3.VIDEO_WIDTH VIDEO_HEIGHT指定视频的宽高，如果配置错误的值将会导致花屏
+ *
+ */
 class YuvPlayerPainter : IPainter {
     companion object {
         const val VIDEO_PATH = "/sdcard/testVideo/beayty.yuv"

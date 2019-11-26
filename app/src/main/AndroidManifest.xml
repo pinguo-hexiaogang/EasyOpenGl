@@ -18,7 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.ChooseActivity"/>
-        <activity android:name=".activity.FGLViewActivity"/>
+        <activity android:name=".activity.ShapeActivity"/>
+        <activity android:name=".activity.TextureActivity"/>
     </application>
 
 </manifest>

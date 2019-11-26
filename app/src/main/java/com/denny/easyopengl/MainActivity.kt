@@ -8,7 +8,8 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.denny.easyopengl.activity.FGLViewActivity
+import com.denny.easyopengl.activity.ShapeActivity
+import com.denny.easyopengl.activity.TextureActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -21,8 +22,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
         recycler_view.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         data = ArrayList()
-        add("绘制形体", FGLViewActivity::class.java)
-        //add("图片处理", SGLViewActivity::class.java)
+        add("绘制形体", ShapeActivity::class.java)
+        add("纹理", TextureActivity::class.java)
 //        add("图形变换", VaryActivity::class.java)
 //        add("相机", CameraActivity::class.java)
 //        add("相机2 动画", Camera2Activity::class.java)

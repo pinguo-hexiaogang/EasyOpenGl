@@ -1,6 +1,6 @@
 /*
  *
- * FGLViewActivity.java
+ * ShapeActivity.java
  * 
  * Created by Wuwang on 2016/9/30
  */
@@ -14,17 +14,22 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.denny.easyopengl.R
 import com.denny.easyopengl.painter.IPainter
+import com.denny.easyopengl.painter.shape.CirclePainter
+import com.denny.easyopengl.painter.shape.ConePainter
+import com.denny.easyopengl.painter.shape.SquarePainter
 import com.denny.easyopengl.painter.shape.TrianglePainter
-import com.denny.easyopengl.render.ShapeRender
+import com.denny.easyopengl.painter.texture.TexturePainter
+import com.denny.easyopengl.painter.texture.TextureSplitPainter
+import com.denny.easyopengl.render.EasyRender
 
 /**
  * Description:
  */
-class FGLViewActivity : AppCompatActivity(), View.OnClickListener {
+class TextureActivity : AppCompatActivity(), View.OnClickListener {
 
     private var mChange: Button? = null
     private var mGLView: GLSurfaceView? = null
-    private val render = ShapeRender()
+    private val render = EasyRender()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +43,7 @@ class FGLViewActivity : AppCompatActivity(), View.OnClickListener {
         mGLView = findViewById(R.id.mGLView) as GLSurfaceView
         mGLView?.setEGLContextClientVersion(2)
         mGLView?.setRenderer(render)
-        render.setPainter(TrianglePainter())
+        render.setPainter(TexturePainter())
         mGLView?.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
         mGLView?.queueEvent {
             mGLView?.requestRender()
@@ -49,10 +54,19 @@ class FGLViewActivity : AppCompatActivity(), View.OnClickListener {
         when (view.id) {
             R.id.mChange -> {
                 val intent = Intent(this, ChooseActivity::class.java)
+                intent.putExtra(ChooseActivity.DATAS, createEntries())
                 startActivityForResult(intent, REQ_CHOOSE)
             }
         }
     }
+
+    private fun createEntries(): ArrayList<EntryItem> {
+        return arrayListOf<EntryItem>().apply {
+            add(EntryItem("纹理", TexturePainter::class.java))
+            add(EntryItem("分屏纹理", TextureSplitPainter::class.java))
+        }
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

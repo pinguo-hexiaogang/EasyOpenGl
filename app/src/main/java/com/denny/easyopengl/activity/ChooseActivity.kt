@@ -32,13 +32,16 @@ class ChooseActivity : AppCompatActivity() {
 
     private var context: ChooseActivity? = null
     private var mList: ListView? = null
-    private var mData: ArrayList<Data>? = null
+    private var mData: List<EntryItem>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         context = this
         setContentView(R.layout.activity_list)
         init()
+    }
+    companion object{
+        const val DATAS = "datas"
     }
 
     private fun init() {
@@ -55,33 +58,11 @@ class ChooseActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        mData = ArrayList()
-        add("三角形", TrianglePainter::class.java)
-//        add("正三角形", TriangleWithCamera::class.java)
-//        add("彩色三角形", TriangleColorFull::class.java)
-//        add("正方体", Square::class.java)
-        add("圆形", CirclePainter::class.java)
-        add("正方形", SquarePainter::class.java)
-        add("圆锥", ConePainter::class.java)
-        add("纹理", TexturePainter::class.java)
-        add("分屏纹理", TextureSplitPainter::class.java)
-//        add("圆柱", Cylinder::class.java)
-//        add("球体", Ball::class.java)
-//        add("带光源的球体", BallWithLight::class.java)
-    }
+        mData = intent.getSerializableExtra(DATAS) as List<EntryItem>
 
-    private fun add(showName: String, clazz: Class<*>) {
-        val data = Data()
-        data.clazz = clazz
-        data.showName = showName
-        mData!!.add(data)
     }
 
 
-    private inner class Data {
-        internal var showName: String? = null
-        internal var clazz: Class<*>? = null
-    }
 
     private inner class Adapter : BaseAdapter() {
 
@@ -116,7 +97,7 @@ class ChooseActivity : AppCompatActivity() {
                 mName = parent.findViewById(R.id.mName) as TextView
             }
 
-            fun setData(data: Data) {
+            fun setData(data: EntryItem) {
                 mName.text = data.showName
             }
         }

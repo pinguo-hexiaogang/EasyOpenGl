@@ -9,7 +9,7 @@ import com.denny.easyopengl.EasyApplication
 import com.denny.easyopengl.painter.IPainter
 import com.denny.easyopengl.util.AssetsUtils
 import com.denny.easyopengl.util.ShaderUtil
-import com.denny.easyopengl.util.tofloatBuffer
+import com.denny.easyopengl.util.toFloatBuffer
 import java.nio.ByteBuffer
 import javax.microedition.khronos.opengles.GL10
 
@@ -35,7 +35,7 @@ open class TexturePainter : IPainter {
         1f, -1f
     )
 
-    private val vertexBuff = ByteBuffer.allocateDirect(vertexs.size * 4).tofloatBuffer(vertexs)
+    private val vertexBuff = ByteBuffer.allocateDirect(vertexs.size * 4).toFloatBuffer(vertexs)
     //    private val textureVertexs = floatArrayOf(
 //        0.0f, 0.0f,
 //        0.0f, 1.0f,
@@ -50,7 +50,7 @@ open class TexturePainter : IPainter {
         1.0f, 0f
     )
     private val textureVertexBuff =
-        ByteBuffer.allocateDirect(textureVertexs.size * 4).tofloatBuffer(textureVertexs)
+        ByteBuffer.allocateDirect(textureVertexs.size * 4).toFloatBuffer(textureVertexs)
 
     private var defaultBitmap: Bitmap = loadDefaultBitmap()
 

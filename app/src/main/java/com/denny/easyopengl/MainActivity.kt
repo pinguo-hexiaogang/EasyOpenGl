@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.denny.easyopengl.activity.ShapeActivity
 import com.denny.easyopengl.activity.TextureActivity
+import com.denny.easyopengl.activity.YuvPlayerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         data = ArrayList()
         add("绘制形体", ShapeActivity::class.java)
         add("纹理", TextureActivity::class.java)
+        add("yuv player", YuvPlayerActivity::class.java)
 //        add("图形变换", VaryActivity::class.java)
 //        add("相机", CameraActivity::class.java)
 //        add("相机2 动画", Camera2Activity::class.java)

@@ -15,10 +15,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.denny.easyopengl.R
 import com.denny.easyopengl.painter.IPainter
-import com.denny.easyopengl.painter.shape.CirclePainter
-import com.denny.easyopengl.painter.shape.ConePainter
-import com.denny.easyopengl.painter.shape.SquarePainter
-import com.denny.easyopengl.painter.shape.TrianglePainter
+import com.denny.easyopengl.painter.shape.*
 import com.denny.easyopengl.painter.texture.TexturePainter
 import com.denny.easyopengl.painter.texture.TextureSplitPainter
 import com.denny.easyopengl.render.EasyRender
@@ -66,7 +63,7 @@ class ShapeActivity : AppCompatActivity(), View.OnClickListener {
             add(EntryItem("三角形", TrianglePainter::class.java))
 //        add(EntryItem("正三角形", TriangleWithCamera::class.java))
 //        add(EntryItem("彩色三角形", TriangleColorFull::class.java))
-//        add(EntryItem("正方体", Square::class.java))
+            add(EntryItem("正方体", CubePainter::class.java))
             add(EntryItem("圆形", CirclePainter::class.java))
             add(EntryItem("正方形", SquarePainter::class.java))
             add(EntryItem("圆锥", ConePainter::class.java))

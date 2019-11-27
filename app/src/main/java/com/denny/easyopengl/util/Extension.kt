@@ -1,9 +1,7 @@
 package com.denny.easyopengl.util
 
 import java.io.InputStream
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
-import java.nio.FloatBuffer
+import java.nio.*
 
 
 fun ByteBuffer.toFloatBuffer(floatArray: FloatArray): FloatBuffer {
@@ -26,8 +24,24 @@ fun ByteArray.toByteBuffer(): ByteBuffer {
     return buffer
 }
 
+fun IntArray.toIntBuffer(): IntBuffer {
+    val buff = ByteBuffer.allocateDirect(size * 4)
+    buff.order(ByteOrder.nativeOrder())
+    val intBuff = buff.asIntBuffer()
+    intBuff.put(this).position(0)
+    return intBuff
+}
+
+fun ShortArray.toShortBuffer(): ShortBuffer{
+    val buff = ByteBuffer.allocateDirect(size * 2)
+    buff.order(ByteOrder.nativeOrder())
+    val shortBuff = buff.asShortBuffer()
+    shortBuff.put(this).position(0)
+    return shortBuff
+}
+
 fun InputStream?.readBytesCheck(bytes: ByteArray): Boolean {
-    if(this == null){
+    if (this == null) {
         return false
     }
     return read(bytes) >= bytes.size

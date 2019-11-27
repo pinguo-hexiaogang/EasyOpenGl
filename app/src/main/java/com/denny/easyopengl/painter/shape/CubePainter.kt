@@ -24,15 +24,15 @@ class CubePainter : IPainter {
     ).toFloatBuffer()
 
     private val colors = floatArrayOf(
-        1f, 0f, 0f,
-        0f, 1f, 0f,
-        0f, 0f, 1f,
-        0.5f, 0.5f, 0.5f,
+        1f, 0f, 0f, 1f,
+        0f, 1f, 0f, 1f,
+        0f, 0f, 1f, 1f,
+        0.5f, 0.5f, 0.5f, 1f,
 
-        0.2f, 1f, 1f,
-        0.3f, 0f, 0f,
-        1f, 1f, 1f,
-        0.2f, 1f, 0f
+        0.2f, 1f, 1f, 1f,
+        0.3f, 0f, 0f, 1f,
+        1f, 1f, 1f, 1f,
+        0.2f, 1f, 0f, 1f
 
     ).toFloatBuffer()
 
@@ -63,7 +63,7 @@ class CubePainter : IPainter {
         }
         if (this.width != width || this.height != height) {
             val viewMatrix = FloatArray(16)
-            Matrix.setLookAtM(viewMatrix, 0, 5f, 5f, 10f, 0f, 0f, 0f, 0f, 1f, 0f)
+            Matrix.setLookAtM(viewMatrix, 0, 0f, -5f, 10f, 0f, 0f, 0f, 0f, 1f, 0f)
             val projectionMatrix = FloatArray(16)
             Matrix.perspectiveM(projectionMatrix, 0, 30f, width * 1f / height, 1f, 20f)
             Matrix.multiplyMM(matrix, 0, projectionMatrix, 0, viewMatrix, 0)
@@ -87,7 +87,7 @@ class CubePainter : IPainter {
 
         val aColor = GLES20.glGetAttribLocation(program, "aColor")
         GLES20.glEnableVertexAttribArray(aColor)
-        GLES20.glVertexAttribPointer(aColor, 3, GLES20.GL_FLOAT, false, 0, colors)
+        GLES20.glVertexAttribPointer(aColor, 4, GLES20.GL_FLOAT, false, 0, colors)
         GLES20.glDrawElements(
             GLES20.GL_TRIANGLES,
             indexs.size,

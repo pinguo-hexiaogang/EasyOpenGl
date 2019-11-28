@@ -9,6 +9,7 @@ import com.denny.easyopengl.painter.IPainter
 import com.denny.easyopengl.util.*
 import java.io.File
 import java.io.InputStream
+import java.nio.ByteBuffer
 import javax.microedition.khronos.opengles.GL10
 
 /**
@@ -40,6 +41,10 @@ class YuvPlayerPainter : IPainter {
     private val yBuffer = ByteArray(VIDEO_WIDTH * VIDEO_HEIGHT)
     private val uBuffer = ByteArray(VIDEO_WIDTH * VIDEO_HEIGHT / 4)
     private val vBuffer = ByteArray(VIDEO_WIDTH * VIDEO_HEIGHT / 4)
+    private val yDirectBuffer = yBuffer.toByteBuffer()
+    private val uDirectBuffer = uBuffer.toByteBuffer()
+    private val vDirectBuffer = vBuffer.toByteBuffer()
+
     private var vertexsBuf = floatArrayOf(
         -1f, 1f,
         -1f, -1f,
@@ -159,6 +164,12 @@ class YuvPlayerPainter : IPainter {
         }
     }
 
+    private fun copyToByteBuffer(byteArray: ByteArray, byteBuffer: ByteBuffer) {
+        byteBuffer.clear()
+        byteBuffer.put(byteArray)
+        byteBuffer.position(0)
+    }
+
     private fun readYuvFrames() {
         if (inputStream.readBytesCheck(yBuffer)
             && inputStream.readBytesCheck(uBuffer)
@@ -168,6 +179,9 @@ class YuvPlayerPainter : IPainter {
             inputStream?.close()
             inputStream = File(VIDEO_PATH).inputStream()
         }
+        copyToByteBuffer(yBuffer,yDirectBuffer)
+        copyToByteBuffer(uBuffer,uDirectBuffer)
+        copyToByteBuffer(vBuffer,vDirectBuffer)
 
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0)
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0])
@@ -180,7 +194,7 @@ class YuvPlayerPainter : IPainter {
             VIDEO_HEIGHT,
             GLES20.GL_LUMINANCE,
             GLES20.GL_UNSIGNED_BYTE,
-            yBuffer.toByteBuffer()
+            yDirectBuffer
         )
         GLES20.glActiveTexture(GLES20.GL_TEXTURE1)
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[1])
@@ -193,7 +207,7 @@ class YuvPlayerPainter : IPainter {
             VIDEO_HEIGHT / 2,
             GLES20.GL_LUMINANCE,
             GLES20.GL_UNSIGNED_BYTE,
-            uBuffer.toByteBuffer()
+            uDirectBuffer
         )
         GLES20.glActiveTexture(GLES20.GL_TEXTURE2)
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[2])
@@ -206,7 +220,7 @@ class YuvPlayerPainter : IPainter {
             VIDEO_HEIGHT / 2,
             GLES20.GL_LUMINANCE,
             GLES20.GL_UNSIGNED_BYTE,
-            vBuffer.toByteBuffer()
+            vDirectBuffer
         )
 
     }

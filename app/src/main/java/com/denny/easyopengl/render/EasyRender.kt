@@ -5,7 +5,7 @@ import com.denny.easyopengl.painter.IPainter
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
-class EasyRender : IRender {
+open class EasyRender : IRender {
 
     private var _painter: IPainter? = null
     private var width: Int = 0

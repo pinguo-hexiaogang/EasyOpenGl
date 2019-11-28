@@ -8,6 +8,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.denny.easyopengl.activity.FBOActivity
 import com.denny.easyopengl.activity.ShapeActivity
 import com.denny.easyopengl.activity.TextureActivity
 import com.denny.easyopengl.activity.YuvPlayerActivity
@@ -26,12 +27,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         add("绘制形体", ShapeActivity::class.java)
         add("纹理", TextureActivity::class.java)
         add("yuv player", YuvPlayerActivity::class.java)
+        add("FBO使用", FBOActivity::class.java)
 //        add("图形变换", VaryActivity::class.java)
 //        add("相机", CameraActivity::class.java)
 //        add("相机2 动画", Camera2Activity::class.java)
 //        add("相机3 美颜", Camera3Activity::class.java)
 //        add("压缩纹理动画", ZipActivity::class.java)
-//        add("FBO使用", FBOActivity::class.java)
 //        add("EGL后台处理", EGLBackEnvActivity::class.java)
 //        add("3D obj模型", ObjLoadActivity::class.java)
 //        add("obj+mtl模型", ObjLoadActivity2::class.java)

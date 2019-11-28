@@ -24,6 +24,7 @@
         <activity android:name=".activity.ShapeActivity" />
         <activity android:name=".activity.TextureActivity" />
         <activity android:name=".activity.YuvPlayerActivity" />
+        <activity android:name=".activity.FBOActivity" />
     </application>
 
 </manifest>

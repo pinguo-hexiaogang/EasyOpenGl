@@ -63,7 +63,7 @@ class CubePainter : IPainter {
         }
         if (this.width != width || this.height != height) {
             val viewMatrix = FloatArray(16)
-            Matrix.setLookAtM(viewMatrix, 0, 0f, -5f, 10f, 0f, 0f, 0f, 0f, 1f, 0f)
+            Matrix.setLookAtM(viewMatrix, 0, 5f, 5f, 10f, 0f, 0f, 0f, 0f, 1f, 0f)
             val projectionMatrix = FloatArray(16)
             Matrix.perspectiveM(projectionMatrix, 0, 30f, width * 1f / height, 1f, 20f)
             Matrix.multiplyMM(matrix, 0, projectionMatrix, 0, viewMatrix, 0)

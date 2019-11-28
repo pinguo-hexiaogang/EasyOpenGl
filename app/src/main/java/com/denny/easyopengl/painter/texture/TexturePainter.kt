@@ -96,7 +96,7 @@ open class TexturePainter : IPainter {
         }
     }
 
-    private fun loadTexture() {
+    open protected fun loadTexture() {
         val textures = IntArray(1)
         GLES20.glGenTextures(1, textures, 0)
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[0])
@@ -127,11 +127,9 @@ open class TexturePainter : IPainter {
     }
 
 
-
-
     override fun draw(gl: GL10?) {
         GLES20.glUseProgram(shaderProgram)
-        subDraw(gl,shaderProgram)
+        subDraw(gl, shaderProgram)
         GLES20.glClearColor(1f, 0f, 0f, 1f)
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT)
         GLES20.glUniformMatrix4fv(
